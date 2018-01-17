@@ -154,4 +154,34 @@ public class Process {
     }
     return newPic;
   }
+
+  public Picture mosaic(String tileSizeStr) {
+    int tileSize = Integer.parseInt(tileSizeStr);
+    int width = pictures[0].getWidth();
+    int height = pictures[0].getHeight();
+    for (int i = 1; i < pictures.length; i++) {
+      if (pictures[i].getWidth() < width) {
+        width = pictures[i].getWidth();
+      }
+      if (pictures[i].getHeight() < height) {
+        height = pictures[i].getHeight();
+      }
+    }
+
+    Picture newPic = Utils.createPicture(width, height);
+    for (int x = 0; x <= width - tileSize; x += tileSize) {
+      for (int y = 0; y <= height - tileSize; y += tileSize) {
+        int desiredPicIndex = ((int)(y / tileSize) % pictures.length +
+                (int)(x / tileSize) % pictures.length) % pictures.length;
+        Picture desiredPic = pictures[desiredPicIndex];
+        for (int i = x; i < x + tileSize; i++) {
+          for (int j = y; j < y + tileSize; j++) {
+            newPic.setPixel(i, j, desiredPic.getPixel(i, j));
+          }
+        }
+      }
+    }
+
+    return newPic;
+  }
 }

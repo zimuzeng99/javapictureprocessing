@@ -6,7 +6,7 @@ public class Main {
     String operation = args[0];
     String opInput = "";
     String[] picInputs;
-    if (operation.equals("rotate") || operation.equals("flip")) {
+    if (operation.equals("rotate") || operation.equals("flip") || operation.equals("mosaic")) {
       opInput = args[1];
       picInputs = new String[args.length - 3];
       for (int i = 2; i < args.length - 1; i++) {
@@ -47,6 +47,9 @@ public class Main {
     }
     else if (operation.equals("blur")) {
       output = process.blur();
+    }
+    else if (operation.equals("mosaic")) {
+      output = process.mosaic(opInput);
     }
     else {
       System.out.print("Error, operation doesn't exist!");
